@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Tareas del Proyecto</title>
+</head>
+<body>
+<th:block th:insert="layout :: content">
+    <div class="container">
+        <h1>Tareas del Proyecto <span th:text="${proyecto.nombre}"></span></h1>
+        <a th:href="@{/tareas/nueva/{proyectoId}(proyectoId=${proyecto.id})}" class="btn btn-primary mb-3">Nueva Tarea</a>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Título</th>
+                <th>Descripción</th>
+                <th>Fecha Límite</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="tarea : ${tareas}">
+                <td th:text="${tarea.titulo}"></td>
+                <td th:text="${tarea.descripcion}"></td>
+                <td th:text="${tarea.fechaLimite}"></td>
+                <td th:text="${tarea.estado}"></td>
+                <td>
+                    <a class="btn btn-danger btn-sm" th:href="@{/tareas/eliminar/{id}(id=${tarea.id})}">Eliminar</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</th:block>
+</body>
+</html>

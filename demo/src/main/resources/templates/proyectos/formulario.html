@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Formulario de Proyecto</title>
+</head>
+<body>
+<th:block th:insert="layout :: content">
+    <div class="container">
+        <h1>Formulario de Proyecto</h1>
+        <form th:action="@{/proyectos}" th:object="${proyecto}" method="post">
+            <input type="hidden" th:field="*{id}">
+
+            <div class="mb-3">
+                <label class="form-label">Nombre</label>
+                <input type="text" class="form-control" th:field="*{nombre}" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Descripción</label>
+                <textarea class="form-control" th:field="*{descripcion}"></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Fecha de Inicio</label>
+                <input type="date" class="form-control" th:field="*{fechaInicio}" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Estado</label>
+                <select class="form-control" th:field="*{estado}">
+                    <option th:each="estado : ${estados}" th:value="${estado}" th:text="${estado}"></option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-success">Guardar</button>
+            <a href="/proyectos" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+</th:block>
+</body>
+</html>
