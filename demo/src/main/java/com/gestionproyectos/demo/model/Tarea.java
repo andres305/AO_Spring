@@ -1,6 +1,7 @@
 package com.gestionproyectos.demo.model;
 
 import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -14,13 +15,15 @@ public class Tarea {
     private String titulo;
 
     private String descripcion;
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern ="yyyy-MM-dd")
     private Date fechaLimite;
 
     @Enumerated(EnumType.STRING)
     private EstadoTarea estado;
 
     @ManyToOne
-    @JoinColumn(name = "proyecto_id")
+    @JoinColumn(name = "proyecto_id", nullable = false)
     private Proyecto proyecto;
 
     // Constructores

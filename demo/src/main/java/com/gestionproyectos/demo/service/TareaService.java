@@ -29,4 +29,8 @@ public class TareaService {
     public void eliminarTarea(Long id) {
         tareaRepository.deleteById(id);
     }
+
+    public List<Tarea> listarTareasPorProyecto(Long proyectoId) {
+        return tareaRepository.findByProyectoId(proyectoId);
+    }
 }

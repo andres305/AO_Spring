@@ -1,6 +1,7 @@
 package com.gestionproyectos.demo.model;
 
 import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 import java.util.List;
@@ -16,13 +17,15 @@ public class Proyecto {
 
     private String descripcion;
 
-    @Column(nullable = false)
+    @Column(name="fecha_inicio", nullable = false)
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern ="yyyy-MM-dd")
     private Date fechaInicio;
 
     @Enumerated(EnumType.STRING)
     private EstadoProyecto estado;
 
-    @OneToMany(mappedBy = "proyecto", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "proyecto", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Tarea> tareas;
 
     // Constructores
@@ -36,6 +39,16 @@ public class Proyecto {
         this.fechaInicio = fechaInicio;
         this.estado = estado;
         this.tareas = tareas;
+    }
+
+    public void agregarTarea(Tarea tarea) {
+        tareas.add(tarea);
+        tarea.setProyecto(this);
+    }
+
+    public void eliminarTarea(Tarea tarea) {
+        tareas.remove(tarea);
+        tarea.setProyecto(null);
     }
 
     // Getters y Setters
